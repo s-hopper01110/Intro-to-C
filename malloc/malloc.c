@@ -6,13 +6,28 @@
 /*
     Duplicates the input string by dynamically allocating memory for 
     the duplicate string using `malloc` and then copying the string
-    into the allocated memory. Returns a pointer to the allocated memory.
+    into the allocated memory. 
+    
+    Returns a pointer to the allocated memory.
     You may want to use the string_length function to figure out the
     length of the input string.
 */
 char *string_dup(char *src)
 {
+    char *str;
+    char *p;
+    int len = 0;
 
+    while (src[len])
+        len++;
+    str = malloc(len + 1);
+    p = str;
+
+    while(*src)
+        *p++ = *src++; 
+    *p = '\0';
+    return str; 
+    
 }
 
 /*
@@ -24,7 +39,12 @@ char *string_dup(char *src)
 */
 void mem_copy(void *dest, const void *src, int n)
 {
+    char *new_src = (char *)src; 
+    char *new_dest = (char *)dest;
 
+    for (int x = 0;x < n; x++){
+        new_dest[x] = new_src[x];
+}
 }
 
 /*
@@ -40,8 +60,19 @@ void mem_copy(void *dest, const void *src, int n)
 */
 void *resize_memory(void *ptr, int old_size, int new_size)
 {
-
+    char *m_size = malloc(new_size);
+    if (old_size < new_size) {
+        mem_copy(m_size, ptr, old_size);
+    } else {
+        mem_copy(m_size, ptr, new_size);
+    }
+    return m_size;
 }
+
+
+
+
+
 
 #ifndef TESTING
 int main(void)
